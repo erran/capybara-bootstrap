@@ -1,6 +1,7 @@
 # Capybara::Bootstrap
 
-TODO: Write a gem description
+The following [Bootstrap Components](http://getbootstrap.com/components/) are supported by `Capybara::Bootstrap`:
+* [Alerts](http://getbootstrap.com/components/#alerts) - [`Capybara::Bootstrap::Alert`](lib/capybara/bootstrap/alert.rb)
 
 ## Installation
 
