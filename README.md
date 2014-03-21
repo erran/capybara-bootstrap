@@ -2,6 +2,7 @@
 
 The following [Bootstrap Components](http://getbootstrap.com/components/) are supported by `Capybara::Bootstrap`:
 * [Alerts](http://getbootstrap.com/components/#alerts) - [`Capybara::Bootstrap::Alert`](lib/capybara/bootstrap/alert.rb)
+* [Navbars](http://getbootstrap.com/components/#alerts) - [`Capybara::Bootstrap::Navbar`](lib/capybara/bootstrap/navbar.rb)
 
 ## Installation
 
