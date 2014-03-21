@@ -5,8 +5,8 @@ module Capybara
     class Navbar < Base
       UTILITY_CLASSES = %w[
         default collapse inverse
-        righ left
-        fixed_bottom fixed_top static_top
+        fixed-bottom fixed-top static-top
+        right left
       ]
 
       attr_reader :utility_classes
