@@ -35,8 +35,17 @@ module Capybara
         @scope &&= validate_scope(@scope)
       end
 
+      # Define Base.new as private so only all/find can call it
+      private_class_method :new
+
       def scope
         validate_scope(@scope)
+      end
+
+      %i[click hover text].each do |action|
+        define_method action do
+          element.send(action)
+        end
       end
 
       def to_css
