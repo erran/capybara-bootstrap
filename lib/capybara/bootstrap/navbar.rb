@@ -13,8 +13,8 @@ module Capybara
 
       class << self
         def all(utility_classes, options)
-          scope = validate_scope(options.delete(:scope))
           css = css_from_utility_classes(utility_classes)
+          scope = wrap(options.delete(:scope))
 
           elements = scope.all(css, options)
           elements.map do |element|
@@ -25,8 +25,8 @@ module Capybara
         # @param [Hash] options
         # @option options :text
         def find(utility_classes, options)
-          scope = validate_scope(options.delete(:scope))
           css = css_from_utility_classes(utility_classes)
+          scope = wrap(options.delete(:scope))
 
           element = scope.find(css, options)
           new(utility_classes, css: css, element: element, scope: scope)
@@ -62,7 +62,6 @@ module Capybara
         options[:css] ||= utility_classes
 
         @css, @element, @scope = options.values_at(:css, :element, :scope)
-        @scope &&= validate_scope(@scope)
         @utility_classes = utility_classes
       end
     end

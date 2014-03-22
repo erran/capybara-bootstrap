@@ -7,8 +7,8 @@ module Capybara
 
       class << self
         def all(type, options)
-          scope = validate_scope(options.delete(:scope))
           css = css_for_type(type)
+          scope = wrap(options.delete(:scope))
 
           elements = scope.all(css, options)
           elements.map do |element|
@@ -19,8 +19,8 @@ module Capybara
         # @param [Hash] options
         # @option options :text
         def find(type, options)
-          scope = validate_scope(options.delete(:scope))
           css = css_for_type(type)
+          scope = wrap(options.delete(:scope))
 
           element = scope.find(css, options)
           new(type, css: css, element: element, scope: scope)
@@ -46,7 +46,6 @@ module Capybara
         options[:css] ||= type
 
         @css, @element, @scope = options.values_at(:css, :element, :scope)
-        @scope &&= validate_scope(@scope)
         @type = type
       end
     end

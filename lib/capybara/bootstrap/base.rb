@@ -4,7 +4,7 @@ module Capybara
   module Bootstrap
     class Base
       attr_reader :element
-      attr_reader :scope
+      attr_writer :scope
 
       class << self
         def all(*)
@@ -21,7 +21,7 @@ module Capybara
           )
         end
 
-        def validate_scope(scope)
+        def wrap(scope)
           if scope.respond_to?(:has_selector?)
             scope
           else
@@ -32,20 +32,20 @@ module Capybara
 
       def initialize(options)
         @css, @element, @scope = options.values_at(:css, :element, :scope)
-        @scope &&= validate_scope(@scope)
+        wrap(@scope)
       end
 
       # Define Base.new as private so only all/find can call it
       private_class_method :new
 
-      def scope
-        validate_scope(@scope)
-      end
-
       %i[click hover text].each do |action|
         define_method action do
           element.send(action)
         end
+      end
+
+      def scope
+        wrap(@scope)
       end
 
       def to_css
@@ -59,14 +59,6 @@ module Capybara
           to_css
         else
           super
-        end
-      end
-
-      def validate_scope(scope)
-        if scope.respond_to?(:has_selector?)
-          scope
-        else
-          scope = Capybara.string(scope.to_s)
         end
       end
     end
