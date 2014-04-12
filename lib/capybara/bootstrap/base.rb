@@ -3,6 +3,7 @@ require 'capybara'
 module Capybara
   module Bootstrap
     class Base
+      attr_reader :css
       attr_reader :element
       attr_writer :scope
 
@@ -25,14 +26,14 @@ module Capybara
           if scope.respond_to?(:has_selector?)
             scope
           else
-            scope = Capybara.string(scope.to_s)
+            Capybara.string(scope.to_s)
           end
         end
       end
 
+      # TODO: This method has no tests
       def initialize(options)
         @css, @element, @scope = options.values_at(:css, :element, :scope)
-        wrap(@scope)
       end
 
       # Define Base.new as private so only all/find can call it
@@ -45,17 +46,15 @@ module Capybara
       end
 
       def scope
-        wrap(@scope)
+        self.class.wrap(@scope)
       end
 
-      def to_css
-        @css
-      end
+      alias_method :to_css, :css
 
       def to_s
         if element && element.respond_to?(:text)
           element.text
-        elsif respond_to?(:to_css)
+        elsif css && respond_to?(:to_css)
           to_css
         else
           super
