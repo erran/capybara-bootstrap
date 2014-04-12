@@ -1,6 +1,3 @@
-# require_relative '../spec_helper.rb'
-# visit '/examples/jumbotron/'
-
 describe Capybara::Bootstrap::Base, :type => :feature do
   describe '.all' do
     it 'should not be implemented' do

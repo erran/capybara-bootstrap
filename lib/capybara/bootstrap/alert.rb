@@ -30,12 +30,14 @@ module Capybara
 
         def css_for_type(type)
           case type
+          when :any
+            ".alert"
           when :success, :info, :warning, :danger
             ".alert.alert-#{type}"
           else
             fail(
               ArgumentError,
-              'Expected one of :success, :info, :warning, or :danger'
+              'Expected one of :any, :success, :info, :warning, or :danger'
             )
           end
         end
