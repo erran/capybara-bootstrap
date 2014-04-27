@@ -2,10 +2,16 @@ require 'capybara/bootstrap/base'
 
 module Capybara
   module Bootstrap
+    # A class that represents the .alert class
     class Alert < Base
+      # @!attribute [r] type
+      #   @return [Symbol] the type of alert (used to detect nested CSS)
       attr_reader :type
 
       class << self
+        # Finds all .alert elements in the selected scope
+        #
+        # @return [Array<Capybara::Bootstrap::Alert>] an array of alerts
         def all(type, options)
           css = css_for_type(type)
           scope = wrap(options.delete(:scope))
@@ -16,8 +22,10 @@ module Capybara
           end
         end
 
-        # @param [Hash] options
-        # @option options :text
+        # Finds an alert inside of the given scope
+        #
+        # @param [Hash] options the options parameter passed to `scope#find()`
+        # @option options [String] :scope the scope to search inside of
         def find(type, options)
           css = css_for_type(type)
           scope = wrap(options.delete(:scope))
@@ -28,6 +36,9 @@ module Capybara
 
         private
 
+        # @param [Symbol] type the type for which to generate CSS
+        # @raise [ArgumentError] if the type was not valid
+        # @return [String] the CSS for a given type
         def css_for_type(type)
           case type
           when :any
@@ -43,6 +54,8 @@ module Capybara
         end
       end
 
+      # @param [Symbol] type the type of alert to create
+      # @return [self] an alert with the provided options
       def initialize(type, options)
         options ||= {}
         options[:css] ||= type
