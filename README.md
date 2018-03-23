@@ -1,3 +1,6 @@
+# No longer maintained
+:warning: **I've stopped development on this project. If you want to take this name in rubygems.org please email me at me@errancarey.com to request transfer of ownership.**
+
 # Capybara::Bootstrap
 
 The following [Bootstrap Components](http://getbootstrap.com/components/) are supported by `Capybara::Bootstrap`:
